@@ -44,7 +44,7 @@ near.obs <- function(
       knn1 <- nabor::knn(observations, locations, k=n.obs)
     }
     
-    if(class(knn1$nn.idx)!='integer') {
+    if(class(c(knn1$nn.idx))!='integer') {
       near_o1 <- apply(knn1$nn.idx, 2, function(x) {variable[x]})
       near_o1 <- cbind(near_o1)
       nl_df <- cbind(knn1$nn.dists, near_o1)
@@ -69,7 +69,7 @@ near.obs <- function(
       if (nrow(observations) < (n.obs+1)) {
         nl_df <- cbind(nl_df, rep(NA, nrow(locations)))
       } else {
-        if (class(knn1$nn.dists) == "numeric") {
+        if (class(c(knn1$nn.dists)) == "numeric") {
           idw.w <- (1/(knn1$nn.dists)^ip) / sum(1/(knn1$nn.dists)^ip) 
           nl_df <- cbind(nl_df, sum(idw.w*near_o1))
         } else {
